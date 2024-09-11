@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,8 @@ import lombok.Setter;
 import org.example.songify.domain.crud.util.BaseEntity;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter(AccessLevel.PACKAGE)
@@ -30,4 +34,7 @@ class Album extends BaseEntity {
 
     private Instant releaseDate;
 
+    @OneToMany
+    @JoinColumn(name = "album_id")
+    private Set<Song> songs = new HashSet<>();
 }
