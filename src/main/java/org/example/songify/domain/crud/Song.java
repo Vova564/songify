@@ -41,6 +41,9 @@ class Song extends BaseEntity {
 
     private Long duration;
 
+    @OneToOne
+    private Genre genre;
+
     @Enumerated(EnumType.STRING)
     private SongLanguage language;
 
