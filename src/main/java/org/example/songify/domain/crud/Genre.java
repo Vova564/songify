@@ -1,4 +1,4 @@
-package org.example.songify.domain.crud.album;
+package org.example.songify.domain.crud;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,22 +12,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.songify.domain.crud.util.BaseEntity;
 
-import java.time.Instant;
-
 @Entity
 @Getter(AccessLevel.PACKAGE)
 @Setter(AccessLevel.PACKAGE)
 @NoArgsConstructor
 @AllArgsConstructor
-class Album extends BaseEntity {
+class Genre extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "album_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "album_id_seq", sequenceName = "album_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "genre_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "genre_id_seq", sequenceName = "genre_id_seq", allocationSize = 1)
     private Long id;
 
     private String name;
 
-    private Instant releaseDate;
 
 }

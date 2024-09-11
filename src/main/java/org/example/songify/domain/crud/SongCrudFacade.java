@@ -1,15 +1,15 @@
-package org.example.songify.domain.crud.song;
+package org.example.songify.domain.crud;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import org.example.songify.domain.crud.song.dto.SongDTO;
+import org.example.songify.domain.crud.dto.SongDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.example.songify.domain.crud.song.SongDomainMapper.mapFromSongDTOToSong;
-import static org.example.songify.domain.crud.song.SongDomainMapper.mapFromSongToSongDTO;
+import static org.example.songify.domain.crud.SongDomainMapper.mapFromSongDTOToSong;
+import static org.example.songify.domain.crud.SongDomainMapper.mapFromSongToSongDTO;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PACKAGE)

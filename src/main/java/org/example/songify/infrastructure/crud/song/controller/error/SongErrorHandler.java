@@ -2,7 +2,7 @@ package org.example.songify.infrastructure.crud.song.controller.error;
 
 import lombok.extern.log4j.Log4j2;
 import org.example.songify.infrastructure.crud.song.controller.SongRestController;
-import org.example.songify.domain.crud.song.SongNotFoundException;
+import org.example.songify.domain.crud.SongNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

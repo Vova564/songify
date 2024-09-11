@@ -1,9 +1,6 @@
-package org.example.songify.domain.crud.song;
+package org.example.songify.domain.crud;
 
-import org.example.songify.domain.crud.song.dto.SongDTO;
-import org.example.songify.infrastructure.crud.song.controller.dto.request.CreateSongRequestBodyDTO;
-import org.example.songify.infrastructure.crud.song.controller.dto.request.PartiallyUpdateSongRequestBodyDTO;
-import org.example.songify.infrastructure.crud.song.controller.dto.request.UpdateSongRequestBodyDTO;
+import org.example.songify.domain.crud.dto.SongDTO;
 
 class SongDomainMapper {
 

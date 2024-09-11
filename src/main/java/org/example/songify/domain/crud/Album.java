@@ -1,6 +1,5 @@
-package org.example.songify.domain.crud.artist;
+package org.example.songify.domain.crud;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,14 +19,15 @@ import java.time.Instant;
 @Setter(AccessLevel.PACKAGE)
 @NoArgsConstructor
 @AllArgsConstructor
-class Artist extends BaseEntity {
+class Album extends BaseEntity {
 
     @Id
-    @GeneratedValue(generator = "artist_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "artist_id_seq", sequenceName = "artist_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "album_id_seq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "album_id_seq", sequenceName = "album_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
+
+    private Instant releaseDate;
 
 }

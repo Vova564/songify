@@ -1,4 +1,4 @@
-package org.example.songify.domain.crud.song.dto;
+package org.example.songify.domain.crud.dto;
 
 import lombok.Builder;
 
