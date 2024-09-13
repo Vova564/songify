@@ -1,0 +1,15 @@
+INSERT INTO song (name, release_date, duration, language, genre_id, album_id) VALUES
+('Shape of You', '2017-01-06 00:00:00', 233, 'English', 2, 7),
+('Blinding Lights', '2019-11-29 00:00:00', 200, 'English', 6, 15),
+('Someone Like You', '2011-01-24 00:00:00', 285, 'English', 1, 12),
+('All of Me', '2013-09-09 00:00:00', 269, 'English', 1, 13),
+('Havana', '2017-08-03 00:00:00', 217, 'Spanish', 2, 14),
+('Smooth', '1999-10-26 00:00:00', 296, 'English', 3, 4),
+('Stairway to Heaven', '1971-11-08 00:00:00', 482, 'English', 3, 5),
+('Respect', '1967-04-01 00:00:00', 148, 'English', 9, 6),
+('Imagine', '1971-10-11 00:00:00', 181, 'English', 4, 8),
+('What a Wonderful World', '1967-10-16 00:00:00', 141, 'English', 10, 10),
+('No Woman, No Cry', '1974-10-25 00:00:00', 427, 'English', 8, 11),
+('The Sound of Silence', '1964-10-19 00:00:00', 185, 'English', 3, 2),
+('Rolling in the Deep', '2010-11-29 00:00:00', 228, 'English', 7, 9),
+('Feeling Good', '1965-02-01 00:00:00', 175, 'English', 10, 3);
