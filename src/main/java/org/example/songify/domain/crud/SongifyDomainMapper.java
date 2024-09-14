@@ -1,6 +1,7 @@
 package org.example.songify.domain.crud;
 
 import org.example.songify.domain.crud.dto.ArtistDTO;
+import org.example.songify.domain.crud.dto.ArtistRequestDTO;
 import org.example.songify.domain.crud.dto.SongDTO;
 
 class SongifyDomainMapper {
@@ -18,24 +19,12 @@ class SongifyDomainMapper {
 
     static ArtistDTO mapFromArtistToArtistDTO(Artist entity) {
         return ArtistDTO.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .build();
     }
 
-    static Artist mapFromArtistDTOToArtist(ArtistDTO artistDTO) {
-        return new Artist(artistDTO.name());
+    static Artist mapFromArtistRequestDTOToArtist(ArtistRequestDTO artistRequestDTO) {
+        return new Artist(artistRequestDTO.name());
     }
-
-//    public static Song mapFromCreateSongRequestDTOToSong(CreateSongRequestBodyDTO dto) {
-//        return new Song(dto.artist(), dto.song());
-//    }
-//
-//    public static Song mapFromUpdateSongRequestBodyDTOToSong(UpdateSongRequestBodyDTO dto) {
-//        return new Song(dto.artist(), dto.song());
-//    }
-//
-//    public static Song mapFromPartiallyUpdateSongRequestBodyDTOToSong(PartiallyUpdateSongRequestBodyDTO dto) {
-//        return new Song(dto.artist(), dto.song());
-//    }
-
 }

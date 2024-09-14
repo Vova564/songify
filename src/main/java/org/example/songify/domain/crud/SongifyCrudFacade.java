@@ -3,13 +3,14 @@ package org.example.songify.domain.crud;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.dto.ArtistDTO;
+import org.example.songify.domain.crud.dto.ArtistRequestDTO;
 import org.example.songify.domain.crud.dto.SongDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromArtistDTOToArtist;
+import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromArtistRequestDTOToArtist;
 import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromArtistToArtistDTO;
 import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromSongDTOToSong;
 import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromSongToSongDTO;
@@ -64,8 +65,8 @@ public class SongifyCrudFacade {
         return mapFromSongToSongDTO(updatedSong);
     }
 
-    public ArtistDTO addArtist(ArtistDTO artistDTO) {
-        Artist artistValidatedAndReadyToSave = mapFromArtistDTOToArtist(artistDTO);
+    public ArtistDTO addArtist(ArtistRequestDTO artistRequestDTO) {
+        Artist artistValidatedAndReadyToSave = mapFromArtistRequestDTOToArtist(artistRequestDTO);
         Artist addedArtist = artistAdder.addArtist(artistValidatedAndReadyToSave);
         return mapFromArtistToArtistDTO(addedArtist);
     }
