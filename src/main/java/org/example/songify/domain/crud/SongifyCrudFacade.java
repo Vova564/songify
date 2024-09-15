@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.ArtistRequestDTO;
+import org.example.songify.domain.crud.dto.GenreDTO;
+import org.example.songify.domain.crud.dto.GenreRequestDTO;
 import org.example.songify.domain.crud.dto.SongDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import java.util.List;
 
 import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromArtistRequestDTOToArtist;
 import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromArtistToArtistDTO;
+import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromGenreRequestDTOToGenre;
+import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromGenreToGenreDTO;
 import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromSongDTOToSong;
 import static org.example.songify.domain.crud.SongifyDomainMapper.mapFromSongToSongDTO;
 
@@ -24,6 +28,7 @@ public class SongifyCrudFacade {
     private final SongDeleter songDeleter;
     private final SongUpdater songUpdater;
     private final ArtistAdder artistAdder;
+    private final GenreAdder genreAdder;
 
     public List<SongDTO> findAll(final Pageable pageable) {
         return songRetriever.findAll(pageable)
@@ -70,5 +75,13 @@ public class SongifyCrudFacade {
         Artist addedArtist = artistAdder.addArtist(artistValidatedAndReadyToSave);
         return mapFromArtistToArtistDTO(addedArtist);
     }
+
+    public GenreDTO addGenre(GenreRequestDTO genreRequestDTO) {
+        Genre genreToSave = mapFromGenreRequestDTOToGenre(genreRequestDTO);
+        Genre addedGenre = genreAdder.addGenre(genreToSave);
+        return mapFromGenreToGenreDTO(addedGenre);
+    }
+
+
 
 }
