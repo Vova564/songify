@@ -1,46 +1,87 @@
 package org.example.songify.domain.crud;
 
+import org.example.songify.domain.crud.dto.AlbumDTO;
+import org.example.songify.domain.crud.dto.AlbumRequestDTO;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.ArtistRequestDTO;
 import org.example.songify.domain.crud.dto.GenreDTO;
 import org.example.songify.domain.crud.dto.GenreRequestDTO;
 import org.example.songify.domain.crud.dto.SongDTO;
+import org.example.songify.domain.crud.dto.SongLanguageDTO;
+import org.example.songify.domain.crud.dto.SongRequestDTO;
+import org.springframework.stereotype.Component;
 
+@Component
 class SongifyDomainMapper {
 
+    // SongLanguage //
+    SongLanguage mapFromSongLanguageDTOToSongLanguage(SongLanguageDTO songLanguageDTO) {
+        return SongLanguage.valueOf(songLanguageDTO.name());
+    }
+
+
+    SongLanguageDTO mapFromSongLanguageToSongLanguageDTO(SongLanguage songLanguage) {
+        return SongLanguageDTO.valueOf(songLanguage.name());
+    }
+
     // Song //
-    static SongDTO mapFromSongToSongDTO(Song entity) {
+    SongDTO mapFromSongToSongDTO(Song entity) {
         return SongDTO.builder()
                 .id(entity.getId())
-                .song(entity.getSong())
+                .name(entity.getName())
                 .build();
     }
 
-    static Song mapFromSongDTOToSong(SongDTO songDTO) {
-        return new Song(songDTO.song());
+    Song mapFromSongRequestDTOToSong(SongRequestDTO songRequestDTO) {
+        SongLanguage language = mapFromSongLanguageDTOToSongLanguage(songRequestDTO.language());
+        return new Song(songRequestDTO.name(), songRequestDTO.releaseDate(), songRequestDTO.duration(), language);
+    }
+
+    SongRequestDTO mapFromSongToSongRequestDTO(Song entity) {
+        SongLanguageDTO language = mapFromSongLanguageToSongLanguageDTO(entity.getLanguage());
+        return SongRequestDTO.builder()
+                .name(entity.getName())
+                .releaseDate(entity.getReleaseDate())
+                .duration(entity.getDuration())
+                .language(language)
+                .build();
     }
 
     // Artist //
-    static ArtistDTO mapFromArtistToArtistDTO(Artist entity) {
+    ArtistDTO mapFromArtistToArtistDTO(Artist entity) {
         return ArtistDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .build();
     }
 
-    static Artist mapFromArtistRequestDTOToArtist(ArtistRequestDTO artistRequestDTO) {
+    Artist mapFromArtistRequestDTOToArtist(ArtistRequestDTO artistRequestDTO) {
         return new Artist(artistRequestDTO.name());
     }
 
     // Genre //
-    static GenreDTO mapFromGenreToGenreDTO(Genre entity) {
+    GenreDTO mapFromGenreToGenreDTO(Genre entity) {
         return GenreDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
                 .build();
     }
 
-    static Genre mapFromGenreRequestDTOToGenre(GenreRequestDTO genreRequestDTO) {
+    Genre mapFromGenreRequestDTOToGenre(GenreRequestDTO genreRequestDTO) {
         return new Genre(genreRequestDTO.name());
+    }
+
+    // Album //
+    AlbumDTO mapFromAlbumToAlbumDTO(Album entity) {
+        return AlbumDTO.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
+    }
+
+    Album mapFromAlbumRequestDTOToAlbum(AlbumRequestDTO albumRequestDTO, Song song) {
+        Album album = new Album(albumRequestDTO.name(), albumRequestDTO.releaseDate());
+        album.addSong(song);
+        return album;
     }
 }

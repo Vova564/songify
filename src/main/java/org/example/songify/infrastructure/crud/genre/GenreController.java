@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.SongifyCrudFacade;
 import org.example.songify.domain.crud.dto.GenreDTO;
 import org.example.songify.domain.crud.dto.GenreRequestDTO;
-import org.example.songify.infrastructure.crud.genre.dto.response.CreateGenreResponseDTO;
+import org.example.songify.infrastructure.crud.genre.dto.CreateGenreResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -3,23 +3,21 @@ package org.example.songify.domain.crud;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import org.example.songify.domain.crud.dto.SongDTO;
+import org.example.songify.domain.crud.dto.SongRequestDTO;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
-
 @Service
-@Log4j2
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 class SongAdder {
 
     private final SongRepository songRepository;
+    private final SongifyDomainMapper mapper;
 
-    Song addSong(final Song song) {
-        log.info("Adding new song: {}", song);
-        song.setDuration(200L);
-        song.setReleaseDate(Instant.now());
-        return songRepository.save(song);
+    SongDTO addSong(final SongRequestDTO songRequestDTO) {
+        Song song = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
+        Song addedSong = songRepository.save(song);
+        return mapper.mapFromSongToSongDTO(addedSong);
     }
 
 }

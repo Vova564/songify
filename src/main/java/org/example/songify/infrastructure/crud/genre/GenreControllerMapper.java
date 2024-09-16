@@ -1,8 +1,8 @@
 package org.example.songify.infrastructure.crud.genre;
 
 import org.example.songify.domain.crud.dto.GenreDTO;
-import org.example.songify.infrastructure.crud.genre.dto.response.CreateGenreResponseDTO;
-import org.example.songify.infrastructure.crud.genre.dto.response.GenreControllerResponseDTO;
+import org.example.songify.infrastructure.crud.genre.dto.CreateGenreResponseDTO;
+import org.example.songify.infrastructure.crud.genre.dto.GenreControllerResponseDTO;
 
 class GenreControllerMapper {
 

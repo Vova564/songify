@@ -1,4 +1,4 @@
-package org.example.songify.infrastructure.crud.song.controller;
+package org.example.songify.infrastructure.crud.song;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

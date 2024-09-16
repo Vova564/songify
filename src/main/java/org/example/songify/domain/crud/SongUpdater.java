@@ -1,34 +1,63 @@
 package org.example.songify.domain.crud;
 
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import org.example.songify.domain.crud.dto.SongDTO;
+import org.example.songify.domain.crud.dto.SongRequestDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-@Log4j2
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Transactional
 class SongUpdater {
 
     private final SongRepository songRepository;
+    private final SongifyDomainMapper mapper;
+    private final SongRetriever songRetriever;
 
-    void updateById(Long id, Song newSong) {
-        songRepository.updateById(id, newSong);
-        log.info("Song updated: {}", newSong);
+    void updateById(final Long id, final SongRequestDTO songRequestDTO) {
+        songRetriever.existsById(id);
+        Song song = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
+        songRepository.updateById(id, song.getName(), song.getReleaseDate(), song.getDuration(), song.getLanguage());
     }
 
-    Song updatePartiallyById(Long id, Song songFromRequest, Song songFromDatabase) {
+    SongDTO updatePartiallyById(final Long id, final SongRequestDTO songRequestDTO) {
+        songRetriever.existsById(id);
+
+        Song songFromDatabase = songRetriever.getSongFromDB(id);
+        Song songFromRequest = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
         Song.SongBuilder builder = Song.builder();
 
-        if (songFromRequest.getSong() != null) {
-            builder.song(songFromRequest.getSong());
+        if (songFromRequest.getName() != null) {
+            builder.name(songFromRequest.getName());
         } else {
-            builder.song(songFromDatabase.getSong());
+            builder.name(songFromDatabase.getName());
+        }
+
+        if (songFromRequest.getReleaseDate() != null) {
+            builder.releaseDate(songFromRequest.getReleaseDate());
+        } else {
+            builder.releaseDate(songFromDatabase.getReleaseDate());
+        }
+
+        if (songFromRequest.getDuration() != null) {
+            builder.duration(songFromRequest.getDuration());
+        } else {
+            builder.duration(songFromDatabase.getDuration());
+        }
+
+        if (songFromRequest.getLanguage() != null) {
+            builder.language(songFromRequest.getLanguage());
+        } else {
+            builder.language(songFromDatabase.getLanguage());
         }
 
         Song songToSave = builder.build();
-        updateById(id, songToSave);
-        return songToSave;
+        SongRequestDTO songRequestDTOToSave = mapper.mapFromSongToSongRequestDTO(songToSave);
+
+        updateById(id, songRequestDTOToSave);
+        return mapper.mapFromSongToSongDTO(songToSave);
     }
 
 // Dirty Checking

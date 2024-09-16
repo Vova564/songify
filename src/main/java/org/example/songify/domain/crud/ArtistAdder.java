@@ -2,18 +2,20 @@ package org.example.songify.domain.crud;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import org.example.songify.domain.crud.dto.ArtistDTO;
+import org.example.songify.domain.crud.dto.ArtistRequestDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-@Log4j2
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 class ArtistAdder {
 
     private final ArtistRepository artistRepository;
+    private final SongifyDomainMapper mapper;
 
-    Artist addArtist(Artist artist) {
-        log.info("Adding new artist: {}", artist);
-        return artistRepository.save(artist);
+    ArtistDTO addArtist(final ArtistRequestDTO artistRequestDTO) {
+        Artist artist = mapper.mapFromArtistRequestDTOToArtist(artistRequestDTO);
+        Artist addedArtist = artistRepository.save(artist);
+        return mapper.mapFromArtistToArtistDTO(addedArtist);
     }
 }

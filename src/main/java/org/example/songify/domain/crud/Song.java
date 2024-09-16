@@ -31,11 +31,13 @@ class Song extends BaseEntity {
     @SequenceGenerator(name = "song_id_seq", sequenceName = "song_id_seq", allocationSize = 1)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String song;
+    @Column(nullable = false)
+    private String name;
 
+    @Column
     private Instant releaseDate;
 
+    @Column
     private Long duration;
 
     @OneToOne
@@ -44,7 +46,14 @@ class Song extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SongLanguage language;
 
-    public Song(String song) {
-        this.song = song;
+    public Song(String name) {
+        this.name = name;
+    }
+
+    Song(final String name, final Instant releaseDate, final Long duration, final SongLanguage language) {
+        this.name = name;
+        this.releaseDate = releaseDate;
+        this.duration = duration;
+        this.language = language;
     }
 }

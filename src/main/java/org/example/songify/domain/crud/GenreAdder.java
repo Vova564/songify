@@ -1,6 +1,8 @@
 package org.example.songify.domain.crud;
 
 import lombok.AllArgsConstructor;
+import org.example.songify.domain.crud.dto.GenreDTO;
+import org.example.songify.domain.crud.dto.GenreRequestDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -8,8 +10,11 @@ import org.springframework.stereotype.Service;
 class GenreAdder {
 
     private final GenreRepository genreRepository;
+    private final SongifyDomainMapper mapper;
 
-    Genre addGenre(Genre genre) {
-        return genreRepository.save(genre);
+    GenreDTO addGenre(final GenreRequestDTO genreRequestDTO) {
+        Genre genre = mapper.mapFromGenreRequestDTOToGenre(genreRequestDTO);
+        Genre addedGenre = genreRepository.save(genre);
+        return mapper.mapFromGenreToGenreDTO(addedGenre);
     }
 }
