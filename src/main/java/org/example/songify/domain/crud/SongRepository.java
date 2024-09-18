@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 interface SongRepository extends Repository<Song, Long> {
 
@@ -15,7 +16,7 @@ interface SongRepository extends Repository<Song, Long> {
     List<Song> findAllSongs(Pageable pageable);
 
     @Query("SELECT s FROM Song s WHERE s.id = :id")
-    Song findById(Long id);
+    Optional<Song> findById(Long id);
 
     @Modifying
     @Query("DELETE FROM Song s WHERE s.id = :id")

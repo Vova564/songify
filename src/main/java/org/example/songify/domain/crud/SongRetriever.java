@@ -12,6 +12,8 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 class SongRetriever {
 
+    private static final String SONG_NOT_FOUND_MESSAGE = "Song with id %s not found";
+
     private final SongRepository songRepository;
     private final SongifyDomainMapper mapper;
 
@@ -23,19 +25,19 @@ class SongRetriever {
     }
 
     SongDTO findSongById(final Long id) {
-        songExistsById(id);
-        Song song = songRepository.findById(id);
+        Song song = songRepository.findById(id)
+                .orElseThrow(() -> new SongNotFoundException(String.format(SONG_NOT_FOUND_MESSAGE, id)));
         return mapper.mapFromSongToSongDTO(song);
     }
 
     Song getSongFromDB(final Long id) {
-        songExistsById(id);
-        return songRepository.findById(id);
+        return songRepository.findById(id)
+                .orElseThrow(() -> new SongNotFoundException(String.format(SONG_NOT_FOUND_MESSAGE, id)));
     }
 
     void songExistsById(final Long id) {
         if (!songRepository.existsById(id)) {
-            throw new SongNotFoundException("Song with id " + id + " not found");
+            throw new SongNotFoundException(String.format(SONG_NOT_FOUND_MESSAGE, id));
         }
     }
 }

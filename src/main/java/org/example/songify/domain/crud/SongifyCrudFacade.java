@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.dto.AlbumDTO;
 import org.example.songify.domain.crud.dto.AlbumRequestDTO;
+import org.example.songify.domain.crud.dto.AlbumWithArtistsAndSongsDTO;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.ArtistRequestDTO;
 import org.example.songify.domain.crud.dto.GenreDTO;
@@ -28,6 +29,7 @@ public class SongifyCrudFacade {
     private final ArtistRetriever artistRetriever;
     private final GenreAdder genreAdder;
     private final AlbumAdder albumAdder;
+    private final AlbumRetriever albumRetriever;
 
     public List<SongDTO> findAllSongs(final Pageable pageable) {
         return songRetriever.findAllSongs(pageable);
@@ -63,6 +65,10 @@ public class SongifyCrudFacade {
 
     public GenreDTO addGenre(GenreRequestDTO genreRequestDTO) {
         return genreAdder.addGenre(genreRequestDTO);
+    }
+
+    public AlbumWithArtistsAndSongsDTO findAlbumByIdWithArtistsAndSongs(Long id) {
+        return albumRetriever.findAlbumByIdWithArtistsAndSongs(id);
     }
 
     public AlbumDTO addAlbum(AlbumRequestDTO albumRequestDTO) {

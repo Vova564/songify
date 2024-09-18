@@ -2,6 +2,7 @@ package org.example.songify.domain.crud;
 
 import org.example.songify.domain.crud.dto.AlbumDTO;
 import org.example.songify.domain.crud.dto.AlbumRequestDTO;
+import org.example.songify.domain.crud.dto.AlbumWithArtistsAndSongsDTO;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.ArtistRequestDTO;
 import org.example.songify.domain.crud.dto.GenreDTO;
@@ -10,6 +11,8 @@ import org.example.songify.domain.crud.dto.SongDTO;
 import org.example.songify.domain.crud.dto.SongLanguageDTO;
 import org.example.songify.domain.crud.dto.SongRequestDTO;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
 
 @Component
 class SongifyDomainMapper {
@@ -83,5 +86,13 @@ class SongifyDomainMapper {
         Album album = new Album(albumRequestDTO.name(), albumRequestDTO.releaseDate());
         album.addSong(song);
         return album;
+    }
+
+    AlbumWithArtistsAndSongsDTO mapFromAlbumDTOAndArtistDTOAndSongDTOToAlbumWithArtistsAndSongsDTO(final AlbumDTO albumDTO, final Set<ArtistDTO> artistsDTO, final Set<SongDTO> songsDTO) {
+        return AlbumWithArtistsAndSongsDTO.builder()
+                .album(albumDTO)
+                .artists(artistsDTO)
+                .songs(songsDTO)
+                .build();
     }
 }

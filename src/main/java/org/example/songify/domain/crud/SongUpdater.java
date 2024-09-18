@@ -23,8 +23,6 @@ class SongUpdater {
     }
 
     SongDTO updateSongPartiallyById(final Long id, final SongRequestDTO songRequestDTO) {
-        songRetriever.songExistsById(id);
-
         Song songFromDatabase = songRetriever.getSongFromDB(id);
         Song songFromRequest = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
         Song.SongBuilder builder = Song.builder();
