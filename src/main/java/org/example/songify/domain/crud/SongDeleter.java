@@ -13,7 +13,7 @@ class SongDeleter {
     private final SongRetriever songRetriever;
 
     void deleteSong(final Long id) {
-        songRetriever.existsById(id);
+        songRetriever.songExistsById(id);
         songRepository.deleteById(id);
     }
 }

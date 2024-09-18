@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.example.songify.infrastructure.crud.album.AlbumContorllerMapper.mapFromAlbumDTOToCreateAlbumResponseDTO;
+import static org.example.songify.infrastructure.crud.album.AlbumControllerMapper.mapFromAlbumDTOToCreateAlbumResponseDTO;
 
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/album")
+@RequestMapping("/albums")
 public class AlbumController {
     private final SongifyCrudFacade songifyCrudFacade;
 

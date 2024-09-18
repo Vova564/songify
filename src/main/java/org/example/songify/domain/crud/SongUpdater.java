@@ -16,14 +16,14 @@ class SongUpdater {
     private final SongifyDomainMapper mapper;
     private final SongRetriever songRetriever;
 
-    void updateById(final Long id, final SongRequestDTO songRequestDTO) {
-        songRetriever.existsById(id);
+    void updateSongById(final Long id, final SongRequestDTO songRequestDTO) {
+        songRetriever.songExistsById(id);
         Song song = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
-        songRepository.updateById(id, song.getName(), song.getReleaseDate(), song.getDuration(), song.getLanguage());
+        songRepository.updateSongById(id, song.getName(), song.getReleaseDate(), song.getDuration(), song.getLanguage());
     }
 
-    SongDTO updatePartiallyById(final Long id, final SongRequestDTO songRequestDTO) {
-        songRetriever.existsById(id);
+    SongDTO updateSongPartiallyById(final Long id, final SongRequestDTO songRequestDTO) {
+        songRetriever.songExistsById(id);
 
         Song songFromDatabase = songRetriever.getSongFromDB(id);
         Song songFromRequest = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
@@ -56,7 +56,7 @@ class SongUpdater {
         Song songToSave = builder.build();
         SongRequestDTO songRequestDTOToSave = mapper.mapFromSongToSongRequestDTO(songToSave);
 
-        updateById(id, songRequestDTOToSave);
+        updateSongById(id, songRequestDTOToSave);
         return mapper.mapFromSongToSongDTO(songToSave);
     }
 

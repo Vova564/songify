@@ -15,7 +15,7 @@ import static org.example.songify.infrastructure.crud.genre.GenreControllerMappe
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/genre")
+@RequestMapping("/genres")
 public class GenreController {
 
     private final SongifyCrudFacade songifyCrudFacade;

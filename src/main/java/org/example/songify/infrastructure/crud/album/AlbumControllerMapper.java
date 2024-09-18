@@ -4,7 +4,7 @@ import org.example.songify.domain.crud.dto.AlbumDTO;
 import org.example.songify.infrastructure.crud.album.dto.AlbumControllerResponseDTO;
 import org.example.songify.infrastructure.crud.album.dto.CreateAlbumResponseDTO;
 
-class AlbumContorllerMapper {
+class AlbumControllerMapper {
 
     static AlbumControllerResponseDTO mapFromAlbumDTOToAlbumControllerResponseDTO(AlbumDTO entity) {
         return AlbumControllerResponseDTO.builder()

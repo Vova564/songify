@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-public class ArtistControllerMapper {
+class ArtistControllerMapper {
 
     ArtistControllerResponseDTO mapFromArtistDTOToArtistControllerResponseDTO(ArtistDTO entity) {
         return ArtistControllerResponseDTO.builder()

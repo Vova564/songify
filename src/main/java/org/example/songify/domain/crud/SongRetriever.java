@@ -15,25 +15,25 @@ class SongRetriever {
     private final SongRepository songRepository;
     private final SongifyDomainMapper mapper;
 
-    List<SongDTO> findAll(final Pageable pageable) {
-        List<Song> songs = songRepository.findAll(pageable);
+    List<SongDTO> findAllSongs(final Pageable pageable) {
+        List<Song> songs = songRepository.findAllSongs(pageable);
         return songs.stream()
                 .map(mapper::mapFromSongToSongDTO)
                 .toList();
     }
 
     SongDTO findSongById(final Long id) {
-        existsById(id);
+        songExistsById(id);
         Song song = songRepository.findById(id);
         return mapper.mapFromSongToSongDTO(song);
     }
 
     Song getSongFromDB(final Long id) {
-        existsById(id);
+        songExistsById(id);
         return songRepository.findById(id);
     }
 
-    void existsById(final Long id) {
+    void songExistsById(final Long id) {
         if (!songRepository.existsById(id)) {
             throw new SongNotFoundException("Song with id " + id + " not found");
         }
