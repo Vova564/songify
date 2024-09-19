@@ -3,6 +3,7 @@ package org.example.songify.domain.crud;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.dto.SongDTO;
+import org.example.songify.domain.crud.exception.SongNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

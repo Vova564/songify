@@ -1,4 +1,4 @@
-INSERT INTO song (name, release_date, duration, language, genre_id, album_id) VALUES
+INSERT INTO song (name, duration, release_date, language, album_id, genre_id) VALUES
 ('Rolling in the Deep', 212, '2023-01-03 12:30:00', 'ENGLISH', 1, 3),
 ('Purple Haze', 180, '2023-01-04 13:45:00', 'ENGLISH', 2, 4),
 ('Uptown Funk', 220, '2023-01-05 14:00:00', 'ENGLISH', 2, 5),

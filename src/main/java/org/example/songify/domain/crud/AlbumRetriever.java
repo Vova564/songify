@@ -6,6 +6,7 @@ import org.example.songify.domain.crud.dto.AlbumDTO;
 import org.example.songify.domain.crud.dto.AlbumWithArtistsAndSongsDTO;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.SongDTO;
+import org.example.songify.domain.crud.exception.AlbumNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
