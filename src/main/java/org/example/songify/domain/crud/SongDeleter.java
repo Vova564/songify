@@ -11,9 +11,20 @@ class SongDeleter {
 
     private final SongRepository songRepository;
     private final SongRetriever songRetriever;
+    private final GenreDeleter genreDeleter;
 
-    void deleteSong(final Long id) {
+    void deleteById(final Long id) {
         songRetriever.songExistsById(id);
         songRepository.deleteById(id);
     }
+
+    // Deleting song with cascade genre remover //
+//    void deleteSongAndGenreById(final Long songId) {
+//        Song song = songRetriever.getSongFromDB(songId);
+//        Long genreId = song.getGenre().getId();
+//
+//        deleteById(songId);
+//        genreDeleter.deleteById(genreId);
+//    }
+
 }

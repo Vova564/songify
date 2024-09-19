@@ -1,5 +1,6 @@
 package org.example.songify.domain.crud;
 
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.dto.AlbumDTO;
@@ -19,6 +20,7 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
+@Transactional
 public class SongifyCrudFacade {
 
     private final SongRetriever songRetriever;
@@ -44,8 +46,13 @@ public class SongifyCrudFacade {
     }
 
     public void deleteSongById(Long id) {
-        songDeleter.deleteSong(id);
+        songDeleter.deleteById(id);
     }
+
+    // Deleting song with cascade genre remover //
+//    public void deleteSongAndGenreById(Long id) {
+//        songDeleter.deleteSongAndGenreById(id);
+//    }
 
     public void updateSongById(Long id, SongRequestDTO songRequestDTO) {
         songUpdater.updateSongById(id, songRequestDTO);
