@@ -8,8 +8,10 @@ import org.example.songify.infrastructure.crud.artist.dto.CreateArtistResponseDT
 import org.example.songify.infrastructure.crud.artist.dto.GetAllArtistsResponseDTO;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +40,14 @@ public class ArtistController {
         ArtistDTO savedArtist = songifyCrudFacade.addArtist(requestBody);
 
         CreateArtistResponseDTO response = mapper.mapFromArtistDTOToCreateArtistResponseDTO(savedArtist);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<DeleteArtistResponseDTO> deleteArtistWithAllAlbumsAndSongs(@PathVariable Long id) {
+        songifyCrudFacade.deleteArtistByIdWithAlbumsAndSongs(id);
+
+        DeleteArtistResponseDTO response = new DeleteArtistResponseDTO("Deleted artist with id " + id);
         return ResponseEntity.ok(response);
     }
 

@@ -20,7 +20,6 @@ class AlbumRetriever {
     private final SongifyDomainMapper mapper;
 
     AlbumWithArtistsAndSongsDTO findAlbumByIdWithArtistsAndSongs(final Long id) {
-//        albumExistsById(id);
 
         Album album = albumRepository.findAlbumByIdWithArtistsAndSongs(id)
                 .orElseThrow(() -> new AlbumNotFoundException("Album with id " + id + " not found"));
@@ -39,5 +38,9 @@ class AlbumRetriever {
                 .collect(Collectors.toSet());
 
         return mapper.mapFromAlbumDTOAndArtistDTOAndSongDTOToAlbumWithArtistsAndSongsDTO(albumDTO, artistsDTO, songsDTO);
+    }
+
+    Set<Album> findAlbumsByArtistId(final Long id) {
+        return albumRepository.findAlbumsByArtistId(id);
     }
 }

@@ -32,21 +32,22 @@ public class SongifyCrudFacade {
     private final GenreAdder genreAdder;
     private final AlbumAdder albumAdder;
     private final AlbumRetriever albumRetriever;
+    private final ArtistDeleter artistDeleter;
 
     public List<SongDTO> findAllSongs(final Pageable pageable) {
         return songRetriever.findAllSongs(pageable);
     }
 
-    public SongDTO findSongById(Long id) {
-        return songRetriever.findSongById(id);
+    public SongDTO findSongById(Long songId) {
+        return songRetriever.findSongById(songId);
     }
 
     public SongDTO addSong(SongRequestDTO songRequestDTO) {
         return songAdder.addSong(songRequestDTO);
     }
 
-    public void deleteSongById(Long id) {
-        songDeleter.deleteById(id);
+    public void deleteSongById(Long songId) {
+        songDeleter.deleteById(songId);
     }
 
     // Deleting song with cascade genre remover //
@@ -54,12 +55,12 @@ public class SongifyCrudFacade {
 //        songDeleter.deleteSongAndGenreById(id);
 //    }
 
-    public void updateSongById(Long id, SongRequestDTO songRequestDTO) {
-        songUpdater.updateSongById(id, songRequestDTO);
+    public void updateSongById(Long songId, SongRequestDTO songRequestDTO) {
+        songUpdater.updateSongById(songId, songRequestDTO);
     }
 
-    public SongDTO updateSongPartiallyById(Long id, SongRequestDTO songRequestDTO) {
-        return songUpdater.updateSongPartiallyById(id, songRequestDTO);
+    public SongDTO updateSongPartiallyById(Long songId, SongRequestDTO songRequestDTO) {
+        return songUpdater.updateSongPartiallyById(songId, songRequestDTO);
     }
 
     public Set<ArtistDTO> findAllArtists(Pageable pageable) {
@@ -70,12 +71,16 @@ public class SongifyCrudFacade {
         return artistAdder.addArtist(artistRequestDTO);
     }
 
+    public void deleteArtistByIdWithAlbumsAndSongs(Long artistId) {
+        artistDeleter.deleteArtistByIdWithAlbumsAndSongs(artistId);
+    }
+
     public GenreDTO addGenre(GenreRequestDTO genreRequestDTO) {
         return genreAdder.addGenre(genreRequestDTO);
     }
 
-    public AlbumWithArtistsAndSongsDTO findAlbumByIdWithArtistsAndSongs(Long id) {
-        return albumRetriever.findAlbumByIdWithArtistsAndSongs(id);
+    public AlbumWithArtistsAndSongsDTO findAlbumByIdWithArtistsAndSongs(Long albumId) {
+        return albumRetriever.findAlbumByIdWithArtistsAndSongs(albumId);
     }
 
     public AlbumDTO addAlbum(AlbumRequestDTO albumRequestDTO) {

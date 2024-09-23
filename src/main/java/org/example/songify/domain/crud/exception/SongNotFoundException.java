@@ -1,7 +1,7 @@
 package org.example.songify.domain.crud.exception;
 
 public class SongNotFoundException extends RuntimeException {
-    public SongNotFoundException(String message) {
+    public SongNotFoundException(final String message) {
         super(message);
     }
 }

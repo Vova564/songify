@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 class SongDeleter {
@@ -16,6 +18,10 @@ class SongDeleter {
     void deleteById(final Long id) {
         songRetriever.songExistsById(id);
         songRepository.deleteById(id);
+    }
+
+    void deleteAllSongsById(final Set<Long> songsIds) {
+        songRepository.deleteSongsById(songsIds);
     }
 
     // Deleting song with cascade genre remover //
