@@ -77,6 +77,10 @@ public class SongifyCrudFacade {
         artistAssigner.addArtistToAlbum(artistId, albumId);
     }
 
+    public ArtistDTO addArtistWithDefaultAlbumAndSong(ArtistRequestDTO artistRequestDTO) {
+        return artistAdder.addArtistWithDefaultAlbumAndSong(artistRequestDTO);
+    }
+
     public void deleteArtistByIdWithAlbumsAndSongs(Long artistId) {
         artistDeleter.deleteArtistByIdWithAlbumsAndSongs(artistId);
     }
@@ -94,7 +98,7 @@ public class SongifyCrudFacade {
     }
 
     public AlbumDTO addAlbum(AlbumRequestDTO albumRequestDTO) {
-        return albumAdder.addAlbum(albumRequestDTO);
+        return albumAdder.addAlbumWithSong(albumRequestDTO);
     }
 
 }

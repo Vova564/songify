@@ -50,6 +50,14 @@ public class ArtistController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping("album/song")
+    ResponseEntity<CreateArtistResponseDTO> addArtistWithDefaultAlbumAndSong(@RequestBody ArtistRequestDTO requestBody) {
+        ArtistDTO savedArtist = songifyCrudFacade.addArtistWithDefaultAlbumAndSong(requestBody);
+
+        CreateArtistResponseDTO response = mapper.mapFromArtistDTOToCreateArtistResponseDTO(savedArtist);
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/{id}")
     ResponseEntity<DeleteArtistResponseDTO> deleteArtistWithAllAlbumsAndSongs(@PathVariable Long id) {
         songifyCrudFacade.deleteArtistByIdWithAlbumsAndSongs(id);

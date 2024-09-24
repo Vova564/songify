@@ -20,4 +20,9 @@ class SongAdder {
         return mapper.mapFromSongToSongDTO(addedSong);
     }
 
+    Song addSongAndGetEntity(final SongRequestDTO songRequestDTO) {
+        Song song = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
+        return songRepository.save(song);
+    }
+
 }
