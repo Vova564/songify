@@ -1,18 +1,22 @@
 package org.example.songify.infrastructure.crud.artist;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.SongifyCrudFacade;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.ArtistRequestDTO;
-import org.example.songify.infrastructure.crud.artist.dto.CreateArtistResponseDTO;
-import org.example.songify.infrastructure.crud.artist.dto.DeleteArtistResponseDTO;
-import org.example.songify.infrastructure.crud.artist.dto.GetAllArtistsResponseDTO;
-import org.example.songify.infrastructure.crud.artist.dto.UpdateArtistResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.request.ArtistNameUpdateRequestDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.CreateArtistResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.DeleteArtistResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.GetAllArtistsResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.UpdateArtistNameResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.UpdateArtistResponseDTO;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,6 +63,14 @@ public class ArtistController {
         songifyCrudFacade.addArtistToAlbum(artistId, albumId);
 
         UpdateArtistResponseDTO response = new UpdateArtistResponseDTO("Artist with id " + artistId + " was assigned to album with id " + albumId);
+        return ResponseEntity.ok(response);
+    }
+
+    @PatchMapping("/{id}")
+    ResponseEntity<UpdateArtistNameResponseDTO> deleteArtistWithAllAlbumsAndSongs(@PathVariable Long id, @Valid @RequestBody ArtistNameUpdateRequestDTO requestBody) {
+        songifyCrudFacade.updateArtistNameById(id, requestBody.name());
+
+        UpdateArtistNameResponseDTO response = new UpdateArtistNameResponseDTO("Artist with id " + id + " changed name to " + requestBody.name());
         return ResponseEntity.ok(response);
     }
 }

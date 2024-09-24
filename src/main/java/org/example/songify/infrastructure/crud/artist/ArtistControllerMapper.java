@@ -1,9 +1,9 @@
 package org.example.songify.infrastructure.crud.artist;
 
 import org.example.songify.domain.crud.dto.ArtistDTO;
-import org.example.songify.infrastructure.crud.artist.dto.ArtistControllerResponseDTO;
-import org.example.songify.infrastructure.crud.artist.dto.CreateArtistResponseDTO;
-import org.example.songify.infrastructure.crud.artist.dto.GetAllArtistsResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.ArtistControllerResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.CreateArtistResponseDTO;
+import org.example.songify.infrastructure.crud.artist.dto.response.GetAllArtistsResponseDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;

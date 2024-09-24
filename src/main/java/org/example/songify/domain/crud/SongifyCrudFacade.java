@@ -29,6 +29,7 @@ public class SongifyCrudFacade {
     private final SongUpdater songUpdater;
     private final ArtistAdder artistAdder;
     private final ArtistRetriever artistRetriever;
+    private ArtistUpdater artistUpdater;
     private final ArtistAssigner artistAssigner;
     private final GenreAdder genreAdder;
     private final AlbumAdder albumAdder;
@@ -78,6 +79,10 @@ public class SongifyCrudFacade {
 
     public void deleteArtistByIdWithAlbumsAndSongs(Long artistId) {
         artistDeleter.deleteArtistByIdWithAlbumsAndSongs(artistId);
+    }
+
+    public void updateArtistNameById(Long id, String name) {
+        artistUpdater.updateArtistNameById(id, name);
     }
 
     public GenreDTO addGenre(GenreRequestDTO genreRequestDTO) {

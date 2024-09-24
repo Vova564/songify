@@ -8,22 +8,23 @@ SONGIFY: APLIKACJA DO ZARZĄDZANIA ALBUMAMI, ARTYSTAMI I PIOSENKAMI
 6. można usunąć gatunek muzyczny (ale nie może istnieć piosenka z takim gatunkiem)
 7. można usunąć album (ale dopiero wtedy kiedy nie ma już żadnej piosenki przypisanej do albumu)
 ~~8. można usunąć piosenkę, ale nie usuwamy albumu i artystów gdy była tylko 1 piosenka w albumie~~
-9. można edytować piosenki artysty, oraz jego nazwę
+~~9. można edytować piosenki artysty, oraz jego nazwę~~
 10. można edytować nazwę gatunku muzycznego
 11. można edytować album (dodawać piosenki, arytstów, zmieniac nazwe albumu)
 12. można edytować piosenkę (czas trwania, artystę, nazwę piosenki)
 13. można przypisać piosenki tylko do albumów
-14. można przypisać artystów do albumów (album może mieć więcej artystów, artysta może mieć kilka albumów)
-15. można przypisać tylko jeden gatunek muzyczny do piosenki
-16. gdy nie ma przypisanego gatunku muzycznego do piosenki, to wyświetlamy "defalut"
-~~17. można wyświetlać wszystkie piosenki~~
+14. można przypisać piosenki do artysty (poprzez album)
+~~15. można przypisać artystów do albumów (album może mieć więcej artystów, artysta może mieć kilka albumów)~~
+16. można przypisać tylko jeden gatunek muzyczny do piosenki
+17. gdy nie ma przypisanego gatunku muzycznego do piosenki, to wyświetlamy "defalut"
+~~16. można wyświetlać wszystkie piosenki~~
 18. można wyświetlać wszystkie gatunki
-~~19. można wyświetlać wszystkich artystów~~
-20. można wyświetlać wszystkie albumy
-~~21. można wyświetlać konkretne albumy z artystami oraz piosenkami w albumie~~
-22. można wyświetlać konkretne gatunki muzyczne wraz z piosenkami
-23. można wyświetlać konkretnych artystów wraz z ich albumami
-24. chcemy mieć trwałe dane
+~~20. można wyświetlać wszystkich artystów~~
+21. można wyświetlać wszystkie albumy
+~~22. można wyświetlać konkretne albumy z artystami oraz piosenkami w albumie~~
+23. można wyświetlać konkretne gatunki muzyczne wraz z piosenkami
+24. można wyświetlać konkretnych artystów wraz z ich albumami
+25. chcemy mieć trwałe dane
 
 
 HAPPY PATH (user tworzy album "Eminema" z piosenkami "Til i collapse", "Lose Yourself", o gatunku Rap)

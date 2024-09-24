@@ -28,4 +28,11 @@ class ArtistRetriever {
         return artistRepository.findArtistById(id)
                 .orElseThrow(() -> new ArtistNotFoundException(id));
     }
+
+    void artistExistsById(Long id) {
+        if (!artistRepository.existsById(id)) {
+            throw new ArtistNotFoundException(id);
+        }
+    }
+
 }
