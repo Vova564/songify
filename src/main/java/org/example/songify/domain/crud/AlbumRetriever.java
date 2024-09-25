@@ -22,7 +22,7 @@ class AlbumRetriever {
     AlbumWithArtistsAndSongsDTO findAlbumByIdWithArtistsAndSongs(final Long id) {
 
         Album album = albumRepository.findAlbumByIdWithArtistsAndSongs(id)
-                .orElseThrow(() -> new AlbumNotFoundException("Album with id " + id + " not found"));
+                .orElseThrow(() -> new AlbumNotFoundException(id));
 
         Set<Artist> artists = album.getArtists();
         Set<Song> songs = album.getSongs();

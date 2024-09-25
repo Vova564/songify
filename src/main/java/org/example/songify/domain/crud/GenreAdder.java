@@ -1,12 +1,13 @@
 package org.example.songify.domain.crud;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.example.songify.domain.crud.dto.GenreDTO;
 import org.example.songify.domain.crud.dto.GenreRequestDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 class GenreAdder {
 
     private final GenreRepository genreRepository;

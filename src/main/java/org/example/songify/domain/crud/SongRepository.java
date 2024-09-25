@@ -4,7 +4,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
-import org.springframework.data.repository.query.Param;
 
 import java.time.Instant;
 import java.util.List;
@@ -28,8 +27,8 @@ interface SongRepository extends Repository<Song, Long> {
     void deleteSongsById(Set<Long> songsIds);
 
     @Modifying
-    @Query("UPDATE Song s SET s.name = :name, s.releaseDate = :releaseDate, s.duration = :duration, s.language = :language  WHERE s.id = :id")
-    void updateSongById(Long id, @Param("name") String name, @Param("releaseDate") Instant releaseDate, @Param("duration") Long duration, @Param("language") SongLanguage language);
+    @Query("UPDATE Song s SET s.name = :name, s.releaseDate = :releaseDate, s.duration = :duration, s.language = :language, s.version = :version + 1  WHERE s.id = :id AND s.version = :version")
+    void updateSongById(Long id, String name, Instant releaseDate, Long duration, SongLanguage language, Long version);
 
     Song save(Song songToAdd);
 

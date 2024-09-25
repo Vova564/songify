@@ -21,10 +21,8 @@ interface ArtistRepository extends Repository<Artist, Long> {
     void deleteArtistsById(Long id);
 
     @Modifying
-    @Query("UPDATE Artist a SET a.name = :name WHERE a.id = :id")
-    void updateNameById(Long id, String name);
+    @Query("UPDATE Artist a SET a.name = :name, a.version = :version + 1 WHERE a.id = :id AND a.version = :version")
+    void updateNameByIdAndVersion(Long id, String name, Long version);
 
     Artist save(Artist artist);
-
-    boolean existsById(Long id);
 }

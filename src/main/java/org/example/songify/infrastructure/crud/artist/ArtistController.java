@@ -67,7 +67,7 @@ public class ArtistController {
     }
 
     @PutMapping("/{artistId}/{albumId}")
-    ResponseEntity<UpdateArtistResponseDTO> deleteArtistWithAllAlbumsAndSongs(@PathVariable Long artistId, @PathVariable Long albumId) {
+    ResponseEntity<UpdateArtistResponseDTO> addArtistToAlbum(@PathVariable Long artistId, @PathVariable Long albumId) {
         songifyCrudFacade.addArtistToAlbum(artistId, albumId);
 
         UpdateArtistResponseDTO response = new UpdateArtistResponseDTO("Artist with id " + artistId + " was assigned to album with id " + albumId);
@@ -75,7 +75,7 @@ public class ArtistController {
     }
 
     @PatchMapping("/{id}")
-    ResponseEntity<UpdateArtistNameResponseDTO> deleteArtistWithAllAlbumsAndSongs(@PathVariable Long id, @Valid @RequestBody ArtistNameUpdateRequestDTO requestBody) {
+    ResponseEntity<UpdateArtistNameResponseDTO> updateArtistNameById(@PathVariable Long id, @Valid @RequestBody ArtistNameUpdateRequestDTO requestBody) {
         songifyCrudFacade.updateArtistNameById(id, requestBody.name());
 
         UpdateArtistNameResponseDTO response = new UpdateArtistNameResponseDTO("Artist with id " + id + " changed name to " + requestBody.name());

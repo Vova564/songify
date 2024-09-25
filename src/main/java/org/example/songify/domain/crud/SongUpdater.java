@@ -19,11 +19,11 @@ class SongUpdater {
     void updateSongById(final Long id, final SongRequestDTO songRequestDTO) {
         songRetriever.songExistsById(id);
         Song song = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
-        songRepository.updateSongById(id, song.getName(), song.getReleaseDate(), song.getDuration(), song.getLanguage());
+        songRepository.updateSongById(id, song.getName(), song.getReleaseDate(), song.getDuration(), song.getLanguage(), song.version);
     }
 
     SongDTO updateSongPartiallyById(final Long id, final SongRequestDTO songRequestDTO) {
-        Song songFromDatabase = songRetriever.getSongFromDB(id);
+        Song songFromDatabase = songRetriever.getSongByIdFromDb(id);
         Song songFromRequest = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
         Song.SongBuilder builder = Song.builder();
 

@@ -1,10 +1,11 @@
 package org.example.songify.domain.crud;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 class ArtistAssigner {
 
     private final ArtistRetriever artistRetriever;
