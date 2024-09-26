@@ -97,6 +97,10 @@ public class SongifyCrudFacade {
         return albumRetriever.findAlbumByIdWithArtistsAndSongs(albumId);
     }
 
+    public Set<AlbumDTO> findAlbumsByArtistId(Long artistId) {
+        return albumRetriever.findAlbumsByArtistIdReturnAlbumDTO(artistId);
+    }
+
     public AlbumDTO addAlbum(AlbumRequestDTO albumRequestDTO) {
         return albumAdder.addAlbumWithSong(albumRequestDTO);
     }

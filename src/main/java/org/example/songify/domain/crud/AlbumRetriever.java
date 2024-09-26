@@ -44,6 +44,12 @@ class AlbumRetriever {
         return albumRepository.findAlbumsByArtistId(id);
     }
 
+    Set<AlbumDTO> findAlbumsByArtistIdReturnAlbumDTO(final Long id) {
+        return findAlbumsByArtistId(id).stream()
+                .map(mapper::mapFromAlbumToAlbumDTO)
+                .collect(Collectors.toSet());
+    }
+
     Album getAlbumByIdFromDb(final Long id) {
         return albumRepository.findAlbumById(id);
     }
