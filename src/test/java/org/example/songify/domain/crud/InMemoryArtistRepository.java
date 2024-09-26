@@ -15,7 +15,7 @@ class InMemoryArtistRepository implements ArtistRepository {
 
     @Override
     public List<Artist> findAllArtists(final Pageable pageable) {
-        return List.of();
+        return db.values().stream().toList();
     }
 
     @Override
