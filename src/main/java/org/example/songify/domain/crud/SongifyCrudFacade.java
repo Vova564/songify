@@ -29,12 +29,12 @@ public class SongifyCrudFacade {
     private final SongUpdater songUpdater;
     private final ArtistAdder artistAdder;
     private final ArtistRetriever artistRetriever;
+    private final ArtistDeleter artistDeleter;
     private ArtistUpdater artistUpdater;
     private final ArtistAssigner artistAssigner;
     private final GenreAdder genreAdder;
     private final AlbumAdder albumAdder;
     private final AlbumRetriever albumRetriever;
-    private final ArtistDeleter artistDeleter;
 
     public List<SongDTO> findAllSongs(final Pageable pageable) {
         return songRetriever.findAllSongs(pageable);
