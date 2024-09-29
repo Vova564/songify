@@ -17,11 +17,11 @@ interface AlbumRepository extends Repository<Album, Long> {
     Set<Album> findAlbumsByArtistId(Long id);
 
     @Query("SELECT a FROM Album a WHERE a.id = :id")
-    Album findAlbumById(Long id);
+    Optional<Album> findAlbumById(Long id);
 
     @Modifying
-    @Query("DELETE FROM Album a WHERE a.id IN :id")
-    void deleteAlbumsById(Collection<Long> id);
+    @Query("DELETE FROM Album a WHERE a.id IN :ids")
+    void deleteAlbumsById(Set<Long> ids);
 
     Album save(Album album);
 

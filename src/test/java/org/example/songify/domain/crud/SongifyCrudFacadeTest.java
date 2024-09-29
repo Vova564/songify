@@ -1,14 +1,19 @@
 package org.example.songify.domain.crud;
 
 import org.example.songify.domain.crud.dto.AlbumDTO;
+import org.example.songify.domain.crud.dto.AlbumRequestDTO;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.ArtistRequestDTO;
+import org.example.songify.domain.crud.dto.SongLanguageDTO;
+import org.example.songify.domain.crud.dto.SongRequestDTO;
+import org.example.songify.domain.crud.exception.AlbumNotFoundException;
 import org.example.songify.domain.crud.exception.ArtistNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.data.domain.Pageable;
 
+import java.time.Instant;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,8 +30,8 @@ class SongifyCrudFacadeTest {
     );
 
     @Test
-    @DisplayName("Should add artist 'Shawn Mendes' with id 0 When Shawn Mendes was sent")
-    public void should_add_artist_shawn_mendes_with_id_zero_when_shawn_mendes_was_sent() {
+    @DisplayName("Should add artist")
+    public void should_add_artist() {
         // Given
         ArtistRequestDTO artist = ArtistRequestDTO.builder()
                 .name("Shawn Mendes")
@@ -46,29 +51,8 @@ class SongifyCrudFacadeTest {
     }
 
     @Test
-    @DisplayName("Should add artist Ed Sheeran with id 0 When Ed Sheeran was sent")
-    public void should_add_artist_ed_sheeran_with_id_zero_when_ed_sheeran_was_sent() {
-        // Given
-        ArtistRequestDTO artist = ArtistRequestDTO.builder()
-                .name("Ed Sheeran")
-                .build();
-
-        Set<ArtistDTO> allArtists = songifyCrudFacade.findAllArtists(Pageable.unpaged());
-        assertTrue(allArtists.isEmpty());
-
-        // When
-        ArtistDTO response = songifyCrudFacade.addArtist(artist);
-
-        // Then
-        assertThat(response.id()).isEqualTo(0L);
-        assertThat(response.name()).isEqualTo("Ed Sheeran");
-        int size = songifyCrudFacade.findAllArtists(Pageable.unpaged()).size();
-        assertThat(size).isEqualTo(1);
-    }
-
-    @Test
-    @DisplayName("Should throw exception ArtistNotFound When id 1")
-    public void should_throw_exception_artist_not_found_when_id_was_one() {
+    @DisplayName("Should throw exception When artist not found")
+    public void should_throw_exception_when_artist_not_found() {
         // Given
         assertThat(songifyCrudFacade.findAllArtists(Pageable.unpaged())).isEmpty();
 
@@ -88,9 +72,7 @@ class SongifyCrudFacadeTest {
                 .name("Shawn Mendes")
                 .build();
 
-        ArtistDTO artistDTO = songifyCrudFacade.addArtist(artist);
-        assertThat(songifyCrudFacade.findAllArtists(Pageable.unpaged())).isNotEmpty();
-        Long artistId = artistDTO.id();
+        Long artistId = songifyCrudFacade.addArtist(artist).id();
 
         Set<AlbumDTO> albums = songifyCrudFacade.findAlbumsByArtistId(artistId);
         assertThat(albums).isEmpty();
@@ -100,7 +82,124 @@ class SongifyCrudFacadeTest {
 
         // Then
         assertThat(songifyCrudFacade.findAllArtists(Pageable.unpaged())).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Should delete artist with album and songs When artist have one album and is only artist in the album")
+    public void should_delete_artist_with_album_and_songs_when_artist_have_one_album_and_is_only_artist_in_the_album() {
+        // Given
+        ArtistRequestDTO artist = ArtistRequestDTO.builder()
+                .name("Shawn Mendes")
+                .build();
+        Long artistId = songifyCrudFacade.addArtist(artist).id();
+
+        SongRequestDTO song = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+        Long songId = songifyCrudFacade.addSong(song).id();
+
+        AlbumRequestDTO album = AlbumRequestDTO.builder()
+                .name("Album name")
+                .releaseDate(Instant.now())
+                .songId(songId)
+                .build();
+        Long albumId = songifyCrudFacade.addAlbumWithSong(album).id();
+
+        songifyCrudFacade.addArtistToAlbum(artistId, albumId);
+
+        assertThat(songifyCrudFacade.findAlbumsByArtistId(artistId).size()).isEqualTo(1);
+        assertThat(songifyCrudFacade.findAlbumByIdWithArtistsAndSongs(albumId).artists().size()).isEqualTo(1);
+
+        // When
+        songifyCrudFacade.deleteArtistByIdWithAlbumsAndSongs(artistId);
+
+        // Then
+        assertThat(songifyCrudFacade.findAllArtists(Pageable.unpaged())).isEmpty();
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isEmpty();
+
+        Throwable throwable = catchThrowable(() -> songifyCrudFacade.findAlbumById(albumId));
+        assertThat(throwable).isInstanceOf(AlbumNotFoundException.class);
+        assertThat(throwable.getMessage()).isEqualTo("Album with id " + albumId + " not found");
 
     }
 
+    @Test
+    @DisplayName("Should add album with song")
+    public void should_add_album_with_song() {
+        //TODO
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    @DisplayName("Should add song")
+    public void should_add_song() {
+        //TODO
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    @DisplayName("Should return album by id")
+    public void should_return_album_by_id() {
+        //TODO
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    @DisplayName("Should throw exception When album not found")
+    public void should_throw_exception_when_album_not_found() {
+        //TODO
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    @DisplayName("Should throw exception When album not found")
+    public void should_throw_exception_when_song_not_found() {
+        //TODO
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    @DisplayName("Should add artist to album")
+    public void should_add_artist_to_album() {
+        //TODO
+        // Given
+
+        // When
+
+        // Then
+    }
+
+    @Test
+    @DisplayName("Should return artist by id")
+    public void should_return_artist_by_id() {
+        //TODO
+        // Given
+
+        // When
+
+        // Then
+    }
 }

@@ -32,7 +32,6 @@ class SongifyDomainMapper {
         return SongDTO.builder()
                 .id(entity.getId())
                 .name(entity.getName())
-                .genre(mapFromGenreToGenreDTO(entity.getGenre()))
                 .build();
     }
 
