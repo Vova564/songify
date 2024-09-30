@@ -4,11 +4,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
 interface AlbumRepository extends Repository<Album, Long> {
+
+    @Query("SELECT a FROM Album a")
+    Set<Album> findAllAlbums();
 
     @Query("SELECT a FROM Album a JOIN FETCH a.songs songs JOIN FETCH a.artists artists WHERE a.id = :id")
     Optional<Album> findAlbumByIdWithArtistsAndSongs(Long id);

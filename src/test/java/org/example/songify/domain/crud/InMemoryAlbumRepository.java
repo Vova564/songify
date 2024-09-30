@@ -1,6 +1,7 @@
 package org.example.songify.domain.crud;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -11,6 +12,11 @@ class InMemoryAlbumRepository implements AlbumRepository {
 
     Map<Long, Album> db = new HashMap<>();
     AtomicInteger index = new AtomicInteger(0);
+
+    @Override
+    public Set<Album> findAllAlbums() {
+        return new HashSet<>(db.values());
+    }
 
     @Override
     public Optional<Album> findAlbumByIdWithArtistsAndSongs(final Long id) {

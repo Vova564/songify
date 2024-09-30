@@ -127,6 +127,113 @@ class SongifyCrudFacadeTest {
     }
 
     @Test
+    @DisplayName("Should delete only artist When artist have one album and there are more than one artist in the album")
+    public void should_delete_only_artist_when_artist_have_one_album_and_there_are_more_than_one_artist_in_the_album() {
+        // Given
+        ArtistRequestDTO artist1 = ArtistRequestDTO.builder()
+                .name("Shawn Mendes")
+                .build();
+        Long artistId1 = songifyCrudFacade.addArtist(artist1).id();
+
+        ArtistRequestDTO artist2 = ArtistRequestDTO.builder()
+                .name("Ed Sheeran")
+                .build();
+        Long artistId2 = songifyCrudFacade.addArtist(artist2).id();
+
+        SongRequestDTO song = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+        Long songId = songifyCrudFacade.addSong(song).id();
+
+        AlbumRequestDTO album = AlbumRequestDTO.builder()
+                .name("Album name")
+                .releaseDate(Instant.now())
+                .songId(songId)
+                .build();
+        Long albumId = songifyCrudFacade.addAlbumWithSong(album).id();
+
+        songifyCrudFacade.addArtistToAlbum(artistId1, albumId);
+        songifyCrudFacade.addArtistToAlbum(artistId2, albumId);
+
+        assertThat(songifyCrudFacade.findAlbumsByArtistId(artistId1).size()).isEqualTo(1);
+        assertThat(songifyCrudFacade.findAlbumByIdWithArtistsAndSongs(albumId).artists().size()).isGreaterThanOrEqualTo(2);
+
+        // When
+        songifyCrudFacade.deleteArtistByIdWithAlbumsAndSongs(artistId1);
+
+        // Then
+        Throwable throwable = catchThrowable(() -> songifyCrudFacade.findArtistById(artistId1));
+        assertThat(throwable).isInstanceOf(ArtistNotFoundException.class);
+        assertThat(throwable.getMessage()).isEqualTo("Artist with id " + artistId1 + " not found");
+
+        assertThat(songifyCrudFacade.findAlbumById(albumId)).isNotNull();
+        assertThat(songifyCrudFacade.findSongById(songId)).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Should delete artist with albums and songs When artist is only artist in the albums")
+    public void should_delete_artist_with_albums_and_songs_when_artist_is_only_artist_in_the_albums() {
+        // Given
+        ArtistRequestDTO artist = ArtistRequestDTO.builder()
+                .name("Shawn Mendes")
+                .build();
+        Long artistId = songifyCrudFacade.addArtist(artist).id();
+
+        SongRequestDTO song1 = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+        Long songId1 = songifyCrudFacade.addSong(song1).id();
+
+        SongRequestDTO song2 = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+        Long songId2 = songifyCrudFacade.addSong(song2).id();
+
+        AlbumRequestDTO album1 = AlbumRequestDTO.builder()
+                .name("Album name")
+                .releaseDate(Instant.now())
+                .songId(songId1)
+                .build();
+        Long albumId1 = songifyCrudFacade.addAlbumWithSong(album1).id();
+
+        AlbumRequestDTO album2 = AlbumRequestDTO.builder()
+                .name("Album name 2")
+                .releaseDate(Instant.now())
+                .songId(songId2)
+                .build();
+        Long albumId2 = songifyCrudFacade.addAlbumWithSong(album2).id();
+
+        songifyCrudFacade.addArtistToAlbum(artistId, albumId1);
+        songifyCrudFacade.addArtistToAlbum(artistId, albumId2);
+
+        Set<AlbumDTO> albumsByArtistId = songifyCrudFacade.findAlbumsByArtistId(artistId);
+
+        assertThat(albumsByArtistId.size()).isGreaterThanOrEqualTo(2);
+        albumsByArtistId
+                .forEach(album -> assertThat(songifyCrudFacade.findAlbumByIdWithArtistsAndSongs(album.id()).artists().size()).isEqualTo(1));
+
+        // When
+        songifyCrudFacade.deleteArtistByIdWithAlbumsAndSongs(artistId);
+
+        // Then
+        Throwable throwable = catchThrowable(() -> songifyCrudFacade.findArtistById(artistId));
+        assertThat(throwable).isInstanceOf(ArtistNotFoundException.class);
+        assertThat(throwable.getMessage()).isEqualTo("Artist with id " + artistId + " not found");
+        assertThat(songifyCrudFacade.findAllAlbums()).isEmpty();
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isEmpty();
+
+    }
+
+    @Test
     @DisplayName("Should add album with song")
     public void should_add_album_with_song() {
         //TODO

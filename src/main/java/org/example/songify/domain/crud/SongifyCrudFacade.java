@@ -69,6 +69,10 @@ public class SongifyCrudFacade {
         return artistRetriever.findAllArtists(pageable);
     }
 
+    ArtistDTO findArtistById(final Long id) {
+        return artistRetriever.findArtistById(id);
+    }
+
     public ArtistDTO addArtist(ArtistRequestDTO artistRequestDTO) {
         return artistAdder.addArtist(artistRequestDTO);
     }
@@ -91,6 +95,10 @@ public class SongifyCrudFacade {
 
     public GenreDTO addGenre(GenreRequestDTO genreRequestDTO) {
         return genreAdder.addGenre(genreRequestDTO);
+    }
+
+    public Set<AlbumDTO> findAllAlbums() {
+        return albumRetriever.findAllAlbums();
     }
 
     public AlbumDTO findAlbumById(final Long id) {

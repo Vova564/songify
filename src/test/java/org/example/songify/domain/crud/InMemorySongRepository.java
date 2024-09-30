@@ -48,7 +48,6 @@ class InMemorySongRepository implements SongRepository {
         long id = this.index.getAndIncrement();
         db.put(id, songToAdd);
         songToAdd.setId(id);
-        songToAdd.setGenre(songToAdd.getGenre());
         return songToAdd;
     }
 

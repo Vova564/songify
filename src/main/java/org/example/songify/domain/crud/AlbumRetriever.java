@@ -19,6 +19,13 @@ class AlbumRetriever {
     private final AlbumRepository albumRepository;
     private final SongifyDomainMapper mapper;
 
+    Set<AlbumDTO> findAllAlbums() {
+        Set<Album> albums = albumRepository.findAllAlbums();
+        return albums.stream()
+                .map(mapper::mapFromAlbumToAlbumDTO)
+                .collect(Collectors.toSet());
+    }
+
     AlbumDTO findAlbumById(final Long id) {
         Album album = albumRepository.findAlbumById(id)
                 .orElseThrow(() -> new AlbumNotFoundException(id));
