@@ -9,6 +9,7 @@ import org.example.songify.domain.crud.dto.SongLanguageDTO;
 import org.example.songify.domain.crud.dto.SongRequestDTO;
 import org.example.songify.domain.crud.exception.AlbumNotFoundException;
 import org.example.songify.domain.crud.exception.ArtistNotFoundException;
+import org.example.songify.domain.crud.exception.SongNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -307,6 +308,7 @@ class SongifyCrudFacadeTest {
                 .build();
 
         AlbumDTO albumDTO = songifyCrudFacade.addAlbumWithSong(album);
+        assertThat(songifyCrudFacade.findAllAlbums()).isNotEmpty();
 
         // When
         AlbumDTO response = songifyCrudFacade.findAlbumById(albumDTO.id());
@@ -320,23 +322,29 @@ class SongifyCrudFacadeTest {
     @Test
     @DisplayName("Should throw exception When album not found")
     public void should_throw_exception_when_album_not_found() {
-        //TODO
         // Given
+        assertThat(songifyCrudFacade.findAllAlbums()).isEmpty();
 
         // When
+        Throwable throwable = catchThrowable(() -> songifyCrudFacade.findAlbumById(1L));
 
         // Then
+        assertThat(throwable).isInstanceOf(AlbumNotFoundException.class);
+        assertThat(throwable.getMessage()).isEqualTo("Album with id 1 not found");
     }
 
     @Test
     @DisplayName("Should throw exception When album not found")
     public void should_throw_exception_when_song_not_found() {
-        //TODO
         // Given
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isEmpty();
 
         // When
+        Throwable throwable = catchThrowable(() -> songifyCrudFacade.findSongById(1L));
 
         // Then
+        assertThat(throwable).isInstanceOf(SongNotFoundException.class);
+        assertThat(throwable.getMessage()).isEqualTo("Song with id 1 not found");
     }
 
     @Test
