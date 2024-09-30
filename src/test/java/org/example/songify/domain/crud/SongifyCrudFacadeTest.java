@@ -269,12 +269,23 @@ class SongifyCrudFacadeTest {
     @Test
     @DisplayName("Should add song")
     public void should_add_song() {
-        //TODO
         // Given
+        SongRequestDTO song = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isEmpty();
 
         // When
+        SongDTO response = songifyCrudFacade.addSong(song);
 
         // Then
+        assertThat(response.id()).isEqualTo(0L);
+        assertThat(response.name()).isEqualTo("Imagine");
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged()).size()).isEqualTo(1);
     }
 
     @Test
