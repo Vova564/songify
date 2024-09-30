@@ -350,12 +350,38 @@ class SongifyCrudFacadeTest {
     @Test
     @DisplayName("Should add artist to album")
     public void should_add_artist_to_album() {
-        //TODO
         // Given
+        ArtistRequestDTO artist = ArtistRequestDTO.builder()
+                .name("Shawn Mendes")
+                .build();
+        Long artistId = songifyCrudFacade.addArtist(artist).id();
+
+        SongRequestDTO song = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+        Long songId = songifyCrudFacade.addSong(song).id();
+
+        AlbumRequestDTO album = AlbumRequestDTO.builder()
+                .name("Album name")
+                .releaseDate(Instant.now())
+                .songId(songId)
+                .build();
+        Long albumId = songifyCrudFacade.addAlbumWithSong(album).id();
+
+        assertThat(songifyCrudFacade.findAllAlbums()).isNotEmpty();
+        assertThat(songifyCrudFacade.findAllArtists(Pageable.unpaged())).isNotEmpty();
 
         // When
+        songifyCrudFacade.addArtistToAlbum(artistId, albumId);
 
         // Then
+        assertThat(songifyCrudFacade.findAlbumByIdWithArtistsAndSongs(albumId).artists().size()).isEqualTo(1);
+        songifyCrudFacade.findAlbumByIdWithArtistsAndSongs(albumId).artists()
+                        .forEach(artistDTO -> assertThat(artistDTO.id()).isEqualTo(artistId));
+
     }
 
     @Test
