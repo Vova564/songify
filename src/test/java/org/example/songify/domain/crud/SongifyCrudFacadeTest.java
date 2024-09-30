@@ -314,7 +314,6 @@ class SongifyCrudFacadeTest {
         AlbumDTO response = songifyCrudFacade.findAlbumById(albumDTO.id());
 
         // Then
-        assertThat(response).isInstanceOf(AlbumDTO.class);
         assertThat(response.id()).isEqualTo(0L);
         assertThat(response.name()).isEqualTo("Album name");
     }
@@ -387,11 +386,17 @@ class SongifyCrudFacadeTest {
     @Test
     @DisplayName("Should return artist by id")
     public void should_return_artist_by_id() {
-        //TODO
         // Given
+        ArtistRequestDTO artist = ArtistRequestDTO.builder()
+                .name("Shawn Mendes")
+                .build();
+        ArtistDTO artistDTO = songifyCrudFacade.addArtist(artist);
 
         // When
+        ArtistDTO response = songifyCrudFacade.findArtistById(artistDTO.id());
 
         // Then
+        assertThat(response.id()).isEqualTo(artistDTO.id());
+        assertThat(response.name()).isEqualTo("Shawn Mendes");
     }
 }
