@@ -4,6 +4,7 @@ import org.example.songify.domain.crud.dto.AlbumDTO;
 import org.example.songify.domain.crud.dto.AlbumRequestDTO;
 import org.example.songify.domain.crud.dto.ArtistDTO;
 import org.example.songify.domain.crud.dto.ArtistRequestDTO;
+import org.example.songify.domain.crud.dto.SongDTO;
 import org.example.songify.domain.crud.dto.SongLanguageDTO;
 import org.example.songify.domain.crud.dto.SongRequestDTO;
 import org.example.songify.domain.crud.exception.AlbumNotFoundException;
@@ -236,12 +237,33 @@ class SongifyCrudFacadeTest {
     @Test
     @DisplayName("Should add album with song")
     public void should_add_album_with_song() {
-        //TODO
         // Given
+        SongRequestDTO song = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isEmpty();
+        Long songId = songifyCrudFacade.addSong(song).id();
+
+        AlbumRequestDTO album = AlbumRequestDTO.builder()
+                .name("Album name")
+                .releaseDate(Instant.now())
+                .songId(songId)
+                .build();
+
+        assertThat(songifyCrudFacade.findAllAlbums()).isEmpty();
 
         // When
+        AlbumDTO response = songifyCrudFacade.addAlbumWithSong(album);
 
         // Then
+        assertThat(response.id()).isEqualTo(0L);
+        assertThat(response.name()).isEqualTo("Album name");
+        assertThat(songifyCrudFacade.findAllAlbums().size()).isEqualTo(1);
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged()).size()).isEqualTo(1);
     }
 
     @Test
