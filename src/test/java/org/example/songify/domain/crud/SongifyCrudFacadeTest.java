@@ -291,12 +291,30 @@ class SongifyCrudFacadeTest {
     @Test
     @DisplayName("Should return album by id")
     public void should_return_album_by_id() {
-        //TODO
         // Given
+        SongRequestDTO song = SongRequestDTO.builder()
+                .name("Imagine")
+                .releaseDate(Instant.now())
+                .duration(123L)
+                .language(SongLanguageDTO.ENGLISH)
+                .build();
+        Long songId = songifyCrudFacade.addSong(song).id();
+
+        AlbumRequestDTO album = AlbumRequestDTO.builder()
+                .name("Album name")
+                .releaseDate(Instant.now())
+                .songId(songId)
+                .build();
+
+        AlbumDTO albumDTO = songifyCrudFacade.addAlbumWithSong(album);
 
         // When
+        AlbumDTO response = songifyCrudFacade.findAlbumById(albumDTO.id());
 
         // Then
+        assertThat(response).isInstanceOf(AlbumDTO.class);
+        assertThat(response.id()).isEqualTo(0L);
+        assertThat(response.name()).isEqualTo("Album name");
     }
 
     @Test
