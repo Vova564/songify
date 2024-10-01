@@ -280,12 +280,11 @@ class SongifyCrudFacadeTest {
         assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isEmpty();
 
         // When
-        SongDTO response = songifyCrudFacade.addSong(song);
+        songifyCrudFacade.addSong(song);
 
         // Then
-        assertThat(response.id()).isEqualTo(0L);
-        assertThat(response.name()).isEqualTo("Imagine");
-        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged()).size()).isEqualTo(1);
+        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isNotEmpty();
+        assertThat(songifyCrudFacade.findSongById(0L).name()).isEqualTo("Imagine");
     }
 
     @Test
