@@ -239,7 +239,7 @@ class SongifyCrudFacadeTest {
     @DisplayName("Should add album with song")
     public void should_add_album_with_song() {
         // Given
-        SongRequestDTO song = SongRequestDTO.builder()
+        SongRequestDTO songRequestDTO = SongRequestDTO.builder()
                 .name("Imagine")
                 .releaseDate(Instant.now())
                 .duration(123L)
@@ -247,7 +247,7 @@ class SongifyCrudFacadeTest {
                 .build();
 
         assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isEmpty();
-        Long songId = songifyCrudFacade.addSong(song).id();
+        Long songId = songifyCrudFacade.addSong(songRequestDTO).id();
 
         AlbumRequestDTO album = AlbumRequestDTO.builder()
                 .name("Album name")
@@ -261,10 +261,9 @@ class SongifyCrudFacadeTest {
         AlbumDTO response = songifyCrudFacade.addAlbumWithSong(album);
 
         // Then
-        assertThat(response.id()).isEqualTo(0L);
-        assertThat(response.name()).isEqualTo("Album name");
-        assertThat(songifyCrudFacade.findAllAlbums().size()).isEqualTo(1);
-        assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged()).size()).isEqualTo(1);
+        assertThat(songifyCrudFacade.findAllAlbums()).isNotEmpty();
+        Set<SongDTO> songs = songifyCrudFacade.findAlbumByIdWithArtistsAndSongs(response.id()).songs();
+        assertTrue(songs.stream().anyMatch(song -> song.id().equals(songId)));
     }
 
     @Test
