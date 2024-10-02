@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 class InMemorySongRepository implements SongRepository {
 
@@ -54,5 +55,12 @@ class InMemorySongRepository implements SongRepository {
     @Override
     public boolean existsById(final Long id) {
         return false;
+    }
+
+    @Override
+    public Set<Song> findSongsByIds(final Set<Long> ids) {
+        return db.values().stream()
+                .filter(song -> ids.contains(song.getId()))
+                .collect(Collectors.toSet());
     }
 }

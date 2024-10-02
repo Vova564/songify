@@ -33,4 +33,7 @@ interface SongRepository extends Repository<Song, Long> {
     Song save(Song songToAdd);
 
     boolean existsById(Long id);
+
+    @Query("SELECT s FROM Song s WHERE s.id IN :ids")
+    Set<Song> findSongsByIds(Set<Long> ids);
 }

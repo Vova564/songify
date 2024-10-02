@@ -82,9 +82,9 @@ class SongifyDomainMapper {
                 .build();
     }
 
-    Album mapFromAlbumRequestDTOToAlbum(AlbumRequestDTO albumRequestDTO, Song song) {
+    Album mapFromAlbumRequestDTOToAlbum(AlbumRequestDTO albumRequestDTO, Set<Song> song) {
         Album album = new Album(albumRequestDTO.name(), albumRequestDTO.releaseDate());
-        album.addSong(song);
+        album.addSongs(song);
         return album;
     }
 

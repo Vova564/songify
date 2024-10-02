@@ -106,7 +106,7 @@ class SongifyCrudFacadeTest {
         AlbumRequestDTO album = AlbumRequestDTO.builder()
                 .name("Album name")
                 .releaseDate(Instant.now())
-                .songId(songId)
+                .songIds(Set.of(songId))
                 .build();
         Long albumId = songifyCrudFacade.addAlbumWithSong(album).id();
 
@@ -153,7 +153,7 @@ class SongifyCrudFacadeTest {
         AlbumRequestDTO album = AlbumRequestDTO.builder()
                 .name("Album name")
                 .releaseDate(Instant.now())
-                .songId(songId)
+                .songIds(Set.of(songId))
                 .build();
         Long albumId = songifyCrudFacade.addAlbumWithSong(album).id();
 
@@ -203,14 +203,14 @@ class SongifyCrudFacadeTest {
         AlbumRequestDTO album1 = AlbumRequestDTO.builder()
                 .name("Album name")
                 .releaseDate(Instant.now())
-                .songId(songId1)
+                .songIds(Set.of(songId1))
                 .build();
         Long albumId1 = songifyCrudFacade.addAlbumWithSong(album1).id();
 
         AlbumRequestDTO album2 = AlbumRequestDTO.builder()
                 .name("Album name 2")
                 .releaseDate(Instant.now())
-                .songId(songId2)
+                .songIds(Set.of(songId2))
                 .build();
         Long albumId2 = songifyCrudFacade.addAlbumWithSong(album2).id();
 
@@ -252,7 +252,7 @@ class SongifyCrudFacadeTest {
         AlbumRequestDTO album = AlbumRequestDTO.builder()
                 .name("Album name")
                 .releaseDate(Instant.now())
-                .songId(songId)
+                .songIds(Set.of(songId))
                 .build();
 
         assertThat(songifyCrudFacade.findAllAlbums()).isEmpty();
@@ -302,7 +302,7 @@ class SongifyCrudFacadeTest {
         AlbumRequestDTO album = AlbumRequestDTO.builder()
                 .name("Album name")
                 .releaseDate(Instant.now())
-                .songId(songId)
+                .songIds(Set.of(songId))
                 .build();
 
         AlbumDTO albumDTO = songifyCrudFacade.addAlbumWithSong(album);
@@ -364,7 +364,7 @@ class SongifyCrudFacadeTest {
         AlbumRequestDTO album = AlbumRequestDTO.builder()
                 .name("Album name")
                 .releaseDate(Instant.now())
-                .songId(songId)
+                .songIds(Set.of(songId))
                 .build();
         Long albumId = songifyCrudFacade.addAlbumWithSong(album).id();
 

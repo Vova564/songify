@@ -7,6 +7,7 @@ import org.example.songify.domain.crud.dto.AlbumRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
@@ -22,8 +23,8 @@ class AlbumAdder {
     }
 
     AlbumDTO addAlbumWithSong(final AlbumRequestDTO albumRequestDTO) {
-        Song song = songRetriever.getSongByIdFromDb(albumRequestDTO.songId());
-        Album album = mapper.mapFromAlbumRequestDTOToAlbum(albumRequestDTO, song);
+        Set<Song> songs = songRetriever.getSongsByIdsFromDb(albumRequestDTO.songIds());
+        Album album = mapper.mapFromAlbumRequestDTOToAlbum(albumRequestDTO, songs);
         Album addedAlbum = albumRepository.save(album);
         return mapper.mapFromAlbumToAlbumDTO(addedAlbum);
     }
