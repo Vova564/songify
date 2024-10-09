@@ -267,8 +267,8 @@ class SongifyCrudFacadeTest {
     }
 
     @Test
-    @DisplayName("Should add song")
-    public void should_add_song() {
+    @DisplayName("Should add song with default genre")
+    public void should_add_song_with_default_genre() {
         // Given
         SongRequestDTO song = SongRequestDTO.builder()
                 .name("Imagine")
@@ -284,7 +284,9 @@ class SongifyCrudFacadeTest {
 
         // Then
         assertThat(songifyCrudFacade.findAllSongs(Pageable.unpaged())).isNotEmpty();
-        assertThat(songifyCrudFacade.findSongById(0L).name()).isEqualTo("Imagine");
+        SongDTO addedSong = songifyCrudFacade.findSongById(0L);
+        assertThat(addedSong.name()).isEqualTo("Imagine");
+        assertThat(addedSong.genre().name()).isEqualTo("default");
     }
 
     @Test

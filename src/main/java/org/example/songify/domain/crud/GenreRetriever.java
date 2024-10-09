@@ -11,6 +11,11 @@ class GenreRetriever {
 
     private final GenreRepository genreRepository;
 
+    Genre getGenreByIdFromDb(final Long id) {
+        return  genreRepository.findById(id)
+                .orElseThrow(() -> new GenreNotFoundException(id));
+    }
+
     void genreExistsById(final Long id) {
         if (!genreRepository.existsById(id)) {
             throw new GenreNotFoundException(id);

@@ -13,10 +13,12 @@ class SongAdder {
 
     private final SongRepository songRepository;
     private final SongifyDomainMapper mapper;
+    private final GenreAssigner genreAssigner;
 
     SongDTO addSong(final SongRequestDTO songRequestDTO) {
         Song song = mapper.mapFromSongRequestDTOToSong(songRequestDTO);
         Song addedSong = songRepository.save(song);
+        genreAssigner.assignigDefaultGenreToSong(song.getId());
         return mapper.mapFromSongToSongDTO(addedSong);
     }
 

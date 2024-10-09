@@ -33,8 +33,7 @@ class SongControllerMapper {
     }
 
     CreateSongResponseDTO mapFromSongToCreateSongResponseDTO(SongDTO entity) {
-        SongControllerResponseDTO songControllerResponseDTO = mapFromSongDTOToSongControllerResponseDTO(entity);
-        return new CreateSongResponseDTO(songControllerResponseDTO);
+        return new CreateSongResponseDTO(entity.id(), entity.name(), entity.genre());
     }
 
     PartiallyUpdateSongResponseDTO mapFromSongDTOToPartiallyUpdateSongResponseDTO(SongDTO entity) {
