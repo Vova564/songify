@@ -32,7 +32,7 @@ public class AlbumController {
 
     @PostMapping
     ResponseEntity<CreateAlbumResponseDTO> addAlbum(@RequestBody AlbumRequestDTO requestBody) {
-        AlbumDTO savedAlbum = songifyCrudFacade.addAlbum(requestBody);
+        AlbumDTO savedAlbum = songifyCrudFacade.addAlbumWithSong(requestBody);
 
         CreateAlbumResponseDTO response = mapper.mapFromAlbumDTOToCreateAlbumResponseDTO(savedAlbum);
         return ResponseEntity.ok(response);

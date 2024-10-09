@@ -4,7 +4,16 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
+import java.util.Optional;
+import java.util.Set;
+
 interface GenreRepository extends Repository<Genre, Long> {
+
+    @Query("SELECT g from Genre g")
+    Set<Genre> findAll();
+
+    @Query("SELECT g FROM Genre g WHERE g.id = :id")
+    Optional<Genre> findById(Long id);
 
     @Modifying
     @Query("DELETE FROM Genre g WHERE g.id = :id")

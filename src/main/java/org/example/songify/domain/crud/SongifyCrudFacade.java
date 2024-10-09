@@ -29,12 +29,13 @@ public class SongifyCrudFacade {
     private final SongUpdater songUpdater;
     private final ArtistAdder artistAdder;
     private final ArtistRetriever artistRetriever;
+    private final ArtistDeleter artistDeleter;
     private ArtistUpdater artistUpdater;
     private final ArtistAssigner artistAssigner;
+    private final GenreRetriever genreRetriever;
     private final GenreAdder genreAdder;
     private final AlbumAdder albumAdder;
     private final AlbumRetriever albumRetriever;
-    private final ArtistDeleter artistDeleter;
 
     public List<SongDTO> findAllSongs(final Pageable pageable) {
         return songRetriever.findAllSongs(pageable);
@@ -69,6 +70,10 @@ public class SongifyCrudFacade {
         return artistRetriever.findAllArtists(pageable);
     }
 
+    ArtistDTO findArtistById(final Long id) {
+        return artistRetriever.findArtistById(id);
+    }
+
     public ArtistDTO addArtist(ArtistRequestDTO artistRequestDTO) {
         return artistAdder.addArtist(artistRequestDTO);
     }
@@ -89,15 +94,31 @@ public class SongifyCrudFacade {
         artistUpdater.updateArtistNameById(id, name);
     }
 
+    public Set<GenreDTO> findAllGenres() {
+        return genreRetriever.findAllGenres();
+    }
+
     public GenreDTO addGenre(GenreRequestDTO genreRequestDTO) {
         return genreAdder.addGenre(genreRequestDTO);
+    }
+
+    public Set<AlbumDTO> findAllAlbums() {
+        return albumRetriever.findAllAlbums();
+    }
+
+    public AlbumDTO findAlbumById(final Long id) {
+        return albumRetriever.findAlbumById(id);
     }
 
     public AlbumWithArtistsAndSongsDTO findAlbumByIdWithArtistsAndSongs(Long albumId) {
         return albumRetriever.findAlbumByIdWithArtistsAndSongs(albumId);
     }
 
-    public AlbumDTO addAlbum(AlbumRequestDTO albumRequestDTO) {
+    public Set<AlbumDTO> findAlbumsByArtistId(Long artistId) {
+        return albumRetriever.findAlbumsByArtistIdReturnAlbumDTO(artistId);
+    }
+
+    public AlbumDTO addAlbumWithSong(AlbumRequestDTO albumRequestDTO) {
         return albumAdder.addAlbumWithSong(albumRequestDTO);
     }
 

@@ -7,7 +7,9 @@ import org.example.songify.domain.crud.exception.SongNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
@@ -27,6 +29,10 @@ class SongRetriever {
         Song song = songRepository.findById(id)
                 .orElseThrow(() -> new SongNotFoundException(id));
         return mapper.mapFromSongToSongDTO(song);
+    }
+
+    Set<Song> getSongsByIdsFromDb(final Set<Long> ids) {
+        return songRepository.findSongsByIds(ids);
     }
 
     Song getSongByIdFromDb(final Long id) {

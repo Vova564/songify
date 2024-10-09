@@ -4,11 +4,13 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
-import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
 interface AlbumRepository extends Repository<Album, Long> {
+
+    @Query("SELECT a FROM Album a")
+    Set<Album> findAllAlbums();
 
     @Query("SELECT a FROM Album a JOIN FETCH a.songs songs JOIN FETCH a.artists artists WHERE a.id = :id")
     Optional<Album> findAlbumByIdWithArtistsAndSongs(Long id);
@@ -17,11 +19,11 @@ interface AlbumRepository extends Repository<Album, Long> {
     Set<Album> findAlbumsByArtistId(Long id);
 
     @Query("SELECT a FROM Album a WHERE a.id = :id")
-    Album findAlbumById(Long id);
+    Optional<Album> findAlbumById(Long id);
 
     @Modifying
-    @Query("DELETE FROM Album a WHERE a.id IN :id")
-    void deleteAlbumsById(Collection<Long> id);
+    @Query("DELETE FROM Album a WHERE a.id IN :ids")
+    void deleteAlbumsById(Set<Long> ids);
 
     Album save(Album album);
 
