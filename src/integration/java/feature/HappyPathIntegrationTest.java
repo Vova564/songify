@@ -74,11 +74,31 @@ class HappyPathIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre.id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre.name", Matchers.is("default")));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/genres"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/genres")
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genres.length()", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genres[0].id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genres[0].name", Matchers.is("default")));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/genres")
+                        .content("""
+                        {
+                            "name": "Rap"
+                        }
+                    """.trim())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre.id", Matchers.is(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre.name", Matchers.is("Rap")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/songs/1")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Till I Collapse")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre.id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre.name", Matchers.is("default")));
     }
 
 }

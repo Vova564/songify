@@ -1,4 +1,6 @@
 package org.example.songify.infrastructure.crud.song.dto.response;
 
-public record GetSongResponseDTO(SongControllerResponseDTO song) {
+import org.example.songify.domain.crud.dto.GenreDTO;
+
+public record GetSongResponseDTO(Long id, String name, GenreDTO genre) {
 }
