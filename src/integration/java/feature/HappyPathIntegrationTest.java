@@ -50,13 +50,35 @@ class HappyPathIntegrationTest {
                           "duration": 0,
                           "language": "ENGLISH"
                       }
-                    """)
+                    """.trim())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Till I Collapse")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre.id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre.name", Matchers.is("default")));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/songs")
+                .content("""
+                        {
+                            "name": "Lose Yourself",
+                            "releaseDate": "2024-11-23T03:32:23.066Z",
+                            "duration": 0,
+                            "language": "ENGLISH"
+                        }
+                    """.trim())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id", Matchers.is(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Lose Yourself")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre.id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre.name", Matchers.is("default")));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/genres"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genres.length()", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genres[0].id", Matchers.is(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genres[0].name", Matchers.is("default")));
     }
 
 }

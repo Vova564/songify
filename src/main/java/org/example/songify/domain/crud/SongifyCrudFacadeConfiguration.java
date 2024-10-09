@@ -11,7 +11,7 @@ class SongifyCrudFacadeConfiguration {
 
         SongifyDomainMapper songifyDomainMapper = new SongifyDomainMapper();
         SongRetriever songRetriever = new SongRetriever(songRepository, songifyDomainMapper);
-        GenreRetriever genreRetriever = new GenreRetriever(genreRepository);
+        GenreRetriever genreRetriever = new GenreRetriever(genreRepository, songifyDomainMapper);
         GenreAssigner genreAssigner = new GenreAssigner(songRetriever, genreRetriever);
         SongAdder songAdder = new SongAdder(songRepository, songifyDomainMapper, genreAssigner);
         GenreDeleter genreDeleter = new GenreDeleter(genreRepository, genreRetriever);
@@ -37,6 +37,7 @@ class SongifyCrudFacadeConfiguration {
                 artistDeleter,
                 artistUpdater,
                 artistAssigner,
+                genreRetriever,
                 genreAdder,
                 albumAdder,
                 albumRetriever
