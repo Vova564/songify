@@ -88,6 +88,14 @@ public class SongRestController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/{songId}/genre/{genreId}")
+    public ResponseEntity<UpdateSongResponseDTO> updateSongGenre(@PathVariable Long songId, @PathVariable Long genreId)  {
+        songifyCrudFacade.updateSongGenre(songId, genreId);
+
+        UpdateSongResponseDTO response = new UpdateSongResponseDTO("Updated song with id " + songId);
+        return ResponseEntity.ok(response);
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<PartiallyUpdateSongResponseDTO> partiallyUpdateSong(@PathVariable Long id, @RequestBody SongRequestDTO requestBody) {
         SongDTO updatedSong = songifyCrudFacade.updateSongPartiallyById(id, requestBody);

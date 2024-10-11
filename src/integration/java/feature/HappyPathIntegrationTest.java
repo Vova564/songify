@@ -82,7 +82,7 @@ class HappyPathIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genres[0].name", Matchers.is("default")));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/genres")
-                        .content("""
+                .content("""
                         {
                             "name": "Rap"
                         }
@@ -99,6 +99,12 @@ class HappyPathIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name", Matchers.is("Till I Collapse")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre.id", Matchers.is(1)))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre.name", Matchers.is("default")));
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/songs/1/genre/2")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.massage", Matchers.is("Updated song with id 1")));
+
     }
 
 }

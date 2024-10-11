@@ -15,6 +15,7 @@ class SongUpdater {
     private final SongRepository songRepository;
     private final SongifyDomainMapper mapper;
     private final SongRetriever songRetriever;
+    private final GenreRetriever genreRetriever;
 
     void updateSongById(final Long id, final SongRequestDTO songRequestDTO) {
         songRetriever.songExistsById(id);
@@ -56,6 +57,12 @@ class SongUpdater {
 
         updateSongById(id, songRequestDTOToSave);
         return mapper.mapFromSongToSongDTO(songToSave);
+    }
+
+    void updateSongGenre(final Long songId, final Long genreId) {
+        Genre genre = genreRetriever.getGenreByIdFromDb(genreId);
+        Song song = songRetriever.getSongByIdFromDb(songId);
+        song.setGenre(genre);
     }
 
 // Dirty Checking
